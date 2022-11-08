@@ -15,22 +15,21 @@ print("Two resources (Oil, Steel) has to be divided among two people with values
 print("0   1")
 print("1-t  t")
 
-t, Ami_steel, Ami_oil, Tami_steel, Tami_oil = cvxpy.Variable(5)  # fractions of the three resources given to Ami
+t = cvxpy.Variable(pos=True)
+Ami_steel = cvxpy.Variable(pos=True)
+Ami_oil = cvxpy.Variable(pos=True)
+Tami_steel = cvxpy.Variable(pos=True)
+Tami_oil = cvxpy.Variable(pos=True)  # fractions of the three resources given to Ami
 
-utility_ami = Ami_steel
-utility_tami = Tami_steel * t + Tami_oil * (1 - t)
+utility_ami = Ami_oil * 0 + Ami_steel * 1
+utility_tami = Tami_oil * (1 - t) + Tami_steel * t
 
-print("\nEgalitarian division")
+constraints = [0.5 <= t, t <= 1, Ami_steel + Ami_oil == 1,
+               Tami_steel + Tami_oil == 1, utility_ami <= 1, utility_tami <= 1]
 
-# constraints = [Tami_oil == (1 - Tami_steel), Ami_steel + Ami_oil == 1,
-#                Tami_steel + Tami_oil == 1]
-
-min_utility = cvxpy.Variable()
-obj = cvxpy.Maximize(min_utility)
 prob = cvxpy.Problem(
-    obj,
-    constraints=[0 <= Ami_steel, Ami_steel <= 1, 0 <= Tami_steel, Tami_steel <= 1, 0 <= Ami_oil, Ami_oil <= 1, 0 <= Tami_oil, Tami_oil <= 1,
-                 min_utility <= utility_ami, min_utility <= utility_tami, 0 <= t, t <= 1])
+    cvxpy.Maximize(utility_tami * utility_ami),
+    constraints)
 prob.solve()
 print("status:", prob.status)
 print("optimal value: ", prob.value)
