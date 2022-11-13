@@ -1,6 +1,8 @@
 """
-Apportionment methods
+Apportionment method
+Also Taken from: https://github.com/martinlackner/apportionment
 """
+
 import numpy as np
 import string
 
@@ -12,12 +14,6 @@ def compute(
         parties=string.ascii_letters,
 ):
     return divisor(y, votes, seats, parties)
-
-
-def __print_results(representatives, parties):
-    print("apportionment:")
-    for i in range(len(representatives)):
-        print("  " + str(parties[i]) + ": " + str(representatives[i]))
 
 
 # Divisor methods
@@ -57,8 +53,6 @@ def divisor(
                 representatives[i] += 1
         if ties:
             print(tiebreaking_message[:-2])
-    # __print_results(representatives, parties)
-
     return representatives.tolist()
 
 
