@@ -1,4 +1,7 @@
+import random
 import matplotlib.pyplot as plt
+
+egalitarian_choice = [0, 0]
 
 
 def BFS(items, node, pruning=False):
@@ -21,7 +24,17 @@ def BFS(items, node, pruning=False):
             else:
                 visited.append(neighbour)
                 queue.append(neighbour)
+    egalitarian_choice = [0, 0]
     return len(list_states)
+
+
+def check_egalitarian(vector):
+    global egalitarian_choice
+    temp = egalitarian_choice
+    if egalitarian_choice == [0, 0]:
+        egalitarian_choice = vector
+    if abs(temp[0] - temp[1]) > abs(vector[0] - vector[1]):
+        egalitarian_choice = vector
 
 
 # for finding the "kids" of each state
@@ -32,7 +45,9 @@ def kids(vec, items):
         if temp_vec[len(vec) - 1] == len(items):
             break
         temp_vec[len(vec) - 1] += 1
-        temp_vec[i] += items[str(temp_vec[len(vec) - 1] - 1)]
+        temp_vec[i] += items[str(temp_vec[len(vec) - 1])]
+        if temp_vec[len(vec) - 1] == len(items):
+            check_egalitarian(temp_vec)
         lst.append(tuple(temp_vec))
         temp_vec = list(vec)
     return lst
@@ -44,14 +59,15 @@ if __name__ == '__main__':
     without_points = []
     num_of_states = 0
     print("dividing objects between two people, BFS Traversal:\n")
-    for i in range(21):
-        items[str(i)] = i
+    for i in range(1, 21):
+        items[str(i)] = random.randint(0, 100)
         vector = (0, 0, 0)
-        print(len(items.keys()), "items:")
+        print("\n", len(items.keys()), "items:", items)
         num_of_states = BFS(items, vector)
         points.append(num_of_states)
         num_of_states_prun = BFS(items, vector, True)
         without_points.append(num_of_states)
+        print("Egalitarian Partitioning:", egalitarian_choice[0:2])
         print(num_of_states / num_of_states_prun, "times more states without pruning")
     plt.plot(points, 'red')
     plt.plot(without_points, 'blue')
