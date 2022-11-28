@@ -45,26 +45,6 @@ def ordered_partition(value_vec, partition_vec):
         print(True)
         return
 
-    # orig_first = orig_second = 0
-    # for j in range(len(partition_vec[0])):
-    #     orig_first += partition_vec[0][j] * value_vec[0][j]
-    #     orig_second += partition_vec[1][j] * value_vec[1][j]
-    # highest = value_vec[1].index(max(value_vec[1]))
-    # lowest = value_vec[0].index(min(value_vec[0]))
-    # if partition_vec[0][lowest] > partition_vec[1][lowest]:
-    #     partition_vec[0][lowest] -= 0.1
-    #     partition_vec[1][lowest] += 0.1
-    # if partition_vec[0][lowest] < partition_vec[1][lowest]:
-    #     partition_vec[0][lowest] += 0.1
-    #     partition_vec[1][lowest] -= 0.1
-    # part_first = part_second = 0
-    # for i in range(len(partition_vec[0])):
-    #     part_first += partition_vec[0][i] * value_vec[0][i]
-    #     part_second += partition_vec[1][i] * value_vec[1][i]
-    # # if part_first >= orig_first and part_second >= orig_second:
-    # print("First player:\noriginal sum:", orig_first, "new:", "%.2f" % part_first)
-    # print("Second player:\noriginal sum:", orig_second, "new:", "%.2f" % part_second)
-
     x1, x2, x3, x4 = cvxpy.Variable(4)
     y1, y2, y3, y4 = cvxpy.Variable(4)
 

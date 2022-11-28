@@ -34,6 +34,7 @@ def check_egalitarian(vector):
     if egalitarian_choice == [0, 0]:
         egalitarian_choice = vector
     if abs(temp[0] - temp[1]) > abs(vector[0] - vector[1]):
+        print("INNNN")
         egalitarian_choice = vector
 
 
@@ -59,7 +60,7 @@ if __name__ == '__main__':
     without_points = []
     num_of_states = 0
     print("dividing objects between two people, BFS Traversal:\n")
-    for i in range(1, 21):
+    for i in range(1, 6):
         items[str(i)] = random.randint(0, 100)
         vector = (0, 0, 0)
         print("\n", len(items.keys()), "items:", items)
