@@ -15,7 +15,7 @@ def ordered_partition(value_vec, partition_vec):
         >>> values = [[10, 20, 30, 40], [11, 21, 31, 41]]
         >>> partition = [[0.7, 0.4, 0, 1], [0.3, 0.6, 1, 0]]
         >>> ordered_partition(values, partition)
-        True
+
         >>> values = [[11, 21, 31, 41], [10, 20, 30, 40]]
         >>> partition = [[0.7, 0.4, 0, 1], [0.3, 0.6, 1, 0]]
         >>> ordered_partition(values, partition)
@@ -41,8 +41,8 @@ def ordered_partition(value_vec, partition_vec):
         Second player:
         original sum: 42.0 new: 70.00
         """
-    if check_ordered(value_vec):
-        print(True)
+    if check_ordered(value_vec, partition_vec):
+        print("True")
         return
 
     x1, x2, x3, x4 = cvxpy.Variable(4)
@@ -70,23 +70,18 @@ def ordered_partition(value_vec, partition_vec):
         print("Second player:\noriginal sum:", orig_second, "new:", "%.2f" % part_second.value)
 
 
-def check_ordered(value_vec):
-    flag1 = flag2 = False
+def check_ordered(value_vec, partition_vec):
     for i in range(len(value_vec[0])):
-        if value_vec[0][i] == 0 or value_vec[1][i] == 0:
+        if partition_vec[0][i] != 0:
+            ratio_first = value_vec[0][i] / value_vec[1][i]
+        else:
             continue
-        ratio_first = value_vec[0][i] / value_vec[1][i]
-        ratio_second = value_vec[1][i] / value_vec[0][i]
-        if ratio_second <= ratio_first:
-            if not flag1:
-                flag1 = True
-            if flag2:
-                return False
+        if partition_vec[1][i] != 0:
+            ratio_second = value_vec[1][i] / value_vec[0][i]
+        else:
+            continue
         if ratio_second > ratio_first:
-            if not flag2:
-                flag2 = True
-            if flag1:
-                return False
+            return False
     return True
 
 

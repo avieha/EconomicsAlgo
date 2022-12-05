@@ -10,9 +10,9 @@ def check_cycle(g):
     """
     :param g: Directed graph
     :return: if there is a DiGraph with weights Mul < 1
-    >>> # Cycle: [(2, 7, 'forward'), (7, 3, 'forward'), (3, 2, 'forward')]
+    >>> # First Cycle: 2->7->3
     Mul: 15
-    Cycle: [(5, 8, 'forward'), (8, 4, 'forward'), (4, 5, 'forward')]
+    Second Cycle: 5->8->4
     Mul: 42
     >>> g = nx.DiGraph()
     >>> edges = [(6, 1, 10), (1, 2, 2), (2, 7, 1), (3, 2, 3), (7, 3, 5), (5, 8, 6), (8, 4, 7), (4, 5, 1)]
@@ -33,7 +33,7 @@ def check_cycle(g):
     Cycle:1->2
     Mul:0.25
     >>> # Cycle: [(1, 2, 'forward'), (2, 1, 'forward')]
-        Mul: 1
+    Mul: 1
     >>> g = nx.DiGraph()
     >>> edges = [(1, 2, 1), (2, 1,1)]
     >>> g.add_weighted_edges_from(edges)
