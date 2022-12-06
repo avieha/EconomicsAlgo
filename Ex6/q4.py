@@ -109,6 +109,14 @@ def check_dijkstra(g, ver_num):
     ...           [0.6, 0, 0]]
     >>> check_dijkstra(g,g.get_vertices())
     0-> 1-> 2-> 0  0.144
+    >>> # two connected cycles, one with mul 5 and the second 0.1
+    >>> g = Graph(4)
+    >>> g.graph = [[0, 2.5, 0,0],
+    ...           [0, 0, 2,0],
+    ...           [1, 0, 0,0.5],
+    ...           [0, 0.1, 0,0]]
+    >>> check_dijkstra(g,g.get_vertices())
+    1-> 2-> 3-> 1  0.1
     """
     for i in range(ver_num):
         res, dist = g.dijkstra(i)
