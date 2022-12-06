@@ -93,7 +93,7 @@ def check_dijkstra(g, ver_num):
     >>> check_dijkstra(g,g.get_vertices())
     >>> # graph with one node
     >>> g = Graph(1)
-    >>> g.graph = [[1,0]]
+    >>> g.graph = [[1]]
     >>> check_dijkstra(g,g.get_vertices())
     >>> # one cycle, but mul > 1
     >>> g = Graph(4)
@@ -178,7 +178,7 @@ class Graph():
         dist[src] = 1
         sptSet = [False] * self.V
 
-        for cout in range(self.V):
+            for cout in range(self.V):
 
             # Pick the minimum distance vertex from
             # the set of vertices not yet processed.
@@ -209,5 +209,11 @@ class Graph():
 
 
 if __name__ == '__main__':
-    (failures, tests) = doctest.testmod(report=True)
-    print("{} failures, {} tests".format(failures, tests))
+    # (failures, tests) = doctest.testmod(report=True)
+    # print("{} failures, {} tests".format(failures, tests))
+    g = Graph(4)
+    g.graph = [[0, 2.5, 0, 0],
+               [0, 0, 2, 0],
+               [1, 0, 0, 0.5],
+               [0, 0, 0, 0]]
+    check_dijkstra(g, g.get_vertices())
