@@ -78,7 +78,7 @@ def leximin_egalitarian(items):
             else:
                 max_partition = copy_max
                 break
-    print("Leximin partitioning:", max_partition)
+    print("Leximin partitioning", max_partition)
 
 
 if __name__ == '__main__':
